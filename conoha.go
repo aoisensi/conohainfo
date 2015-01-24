@@ -14,7 +14,7 @@ const (
 )
 
 type Page struct {
-	Title, id string
+	Title, Id string
 }
 
 type Info struct {
@@ -30,14 +30,14 @@ func GetList() ([]Page, error) {
 	result := make([]Page, list.Length())
 	list.Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
-		page := Page{id: href[1:], Title: s.Text()}
+		page := Page{Id: href[1:], Title: s.Text()}
 		result[i] = page
 	})
 	return result, nil
 }
 
 func (p *Page) GetInfo() (*Info, error) {
-	url := urlGetter + p.id
+	url := urlGetter + p.Id
 	res, err := http.Get(url)
 	if err != nil {
 		return nil, err
